@@ -2,6 +2,9 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import authRoute from './route/authRoute.js';
+import profileRoute from './route/profileRoute.js';
+import jobRoute from './route/jobRoute.js';
 
 const app=express();
 
@@ -20,6 +23,10 @@ try {
     console.log("Error: ",error);
     
 }
+
+app.use('/api/auth', authRoute);
+app.use('/api/profile', profileRoute);
+app.use('/api/jobs', jobRoute);
 
 app.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
