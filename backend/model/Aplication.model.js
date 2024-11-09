@@ -1,6 +1,6 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose from "mongoose";
 
-const applicationSchema = new Schema({
+const applicationSchema = new mongoose.Schema({
     jobId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Job', 
@@ -16,8 +16,8 @@ const applicationSchema = new Schema({
          enum: ['Applied', 'Shortlisted', 'Rejected', 'Hired'], 
          default: 'Applied' },
     appliedDate: { type: Date, default: Date.now },
-    coverLetter: { type: String }, // Optional cover letter
-    resumeUrl: { type: String }, // Resume link, in case the job seeker wants to submit a different one
+    coverLetter: { type: String },
+    resumeUrl: { type: String },
 });
 
 export const Application = mongoose.model('Application', applicationSchema);

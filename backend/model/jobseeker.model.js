@@ -1,7 +1,6 @@
-import { type } from "@testing-library/user-event/dist/type";
-import mongoose, { model } from "mongoose";
+import mongoose from "mongoose";
 
-const jobSeekerSchema = mongoose.Schema({
+const jobSeekerSchema = new mongoose.Schema({
     username:{
         type:String,
         ref:'User',

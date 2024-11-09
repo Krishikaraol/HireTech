@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const jobSchema = mongoose.Schema({
+const jobSchema = new mongoose.Schema({
     employerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -9,7 +9,7 @@ const jobSchema = mongoose.Schema({
     salaryRange: { type: String },
     experienceRequired: { type: String },
     skillsRequired: [String],
-    applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // List of applicants
+    applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     postedDate: { type: Date, default: Date.now },
     applicationDeadline: { type: Date },
 });

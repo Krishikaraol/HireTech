@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema=mongoose.Schema({
+const userSchema=new mongoose.Schema({
     fullname:{
         type:String,
         required:true,
@@ -12,6 +12,11 @@ const userSchema=mongoose.Schema({
         required:true,
         unique:true,
 
+    },
+    username: {
+        type: String,
+        required: true,
+        unique: true, 
     },
     password:{
         type:String,
@@ -27,8 +32,8 @@ const userSchema=mongoose.Schema({
         type:mongoose.Schema.Types.Mixed
     },
     skills: {
-        type: [String],  // An array of strings representing skills
-        default: [],     // Default to an empty array if no skills are provided
+        type: [String],  
+        default: [],     
     },
     experience: [{
         company: String,
@@ -44,5 +49,18 @@ const userSchema=mongoose.Schema({
         to: Date,
     }],
 },{timestamps:true})
+
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
 
 export const User = mongoose.model("User",userSchema)
